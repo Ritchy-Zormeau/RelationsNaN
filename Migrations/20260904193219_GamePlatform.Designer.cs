@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RelationsNaN.Data;
 
@@ -10,9 +11,11 @@ using RelationsNaN.Data;
 namespace RelationsNaN.Migrations
 {
     [DbContext(typeof(RelationsNaNContext))]
-    partial class RelationsNaNContextModelSnapshot : ModelSnapshot
+    [Migration("20260904193219_GamePlatform")]
+    partial class GamePlatform
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -65,29 +68,6 @@ namespace RelationsNaN.Migrations
                     b.ToTable("Game");
                 });
 
-            modelBuilder.Entity("RelationsNaN.Models.GamePurchase", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("GameId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PurchaseId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("GameId");
-
-                    b.HasIndex("PurchaseId");
-
-                    b.ToTable("GamePurchase");
-                });
-
             modelBuilder.Entity("RelationsNaN.Models.Genre", b =>
                 {
                     b.Property<int>("Id")
@@ -122,19 +102,6 @@ namespace RelationsNaN.Migrations
                     b.ToTable("Platform");
                 });
 
-            modelBuilder.Entity("RelationsNaN.Models.Purchase", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Purchase");
-                });
-
             modelBuilder.Entity("GamePlatform", b =>
                 {
                     b.HasOne("RelationsNaN.Models.Game", null)
@@ -159,38 +126,9 @@ namespace RelationsNaN.Migrations
                     b.Navigation("Genre");
                 });
 
-            modelBuilder.Entity("RelationsNaN.Models.GamePurchase", b =>
-                {
-                    b.HasOne("RelationsNaN.Models.Game", "Game")
-                        .WithMany("GamePurchases")
-                        .HasForeignKey("GameId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("RelationsNaN.Models.Purchase", "Purchase")
-                        .WithMany("GamePurchases")
-                        .HasForeignKey("PurchaseId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Game");
-
-                    b.Navigation("Purchase");
-                });
-
-            modelBuilder.Entity("RelationsNaN.Models.Game", b =>
-                {
-                    b.Navigation("GamePurchases");
-                });
-
             modelBuilder.Entity("RelationsNaN.Models.Genre", b =>
                 {
                     b.Navigation("Games");
-                });
-
-            modelBuilder.Entity("RelationsNaN.Models.Purchase", b =>
-                {
-                    b.Navigation("GamePurchases");
                 });
 #pragma warning restore 612, 618
         }

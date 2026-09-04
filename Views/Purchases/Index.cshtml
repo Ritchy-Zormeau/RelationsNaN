@@ -1,0 +1,40 @@
+﻿@model IEnumerable<RelationsNaN.Models.Purchase>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GamePurchases)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @foreach (var gamePurchase in item.GamePurchases)
+                    {
+                        <span class="badge bg-primary">@gamePurchase.Game.Name</span>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
